@@ -10,13 +10,6 @@
       var directionsService = new google.maps.DirectionsService();
       var directionsRenderer = new google.maps.DirectionsRenderer();
 
-      var europeBounds = {
-        north: 71.5,
-        south: 34.5,
-        west: -25.0,
-        east: 45.0
-      };
-
       var mapOptions = {
         zoom: 6,
         center: { lat: 46, lng: 2 },
@@ -27,11 +20,7 @@
             elementType: "labels",
             stylers: [{ visibility: "off" }]
           }
-        ],
-        restriction: {
-          latLngBounds: europeBounds,
-          strictBounds: false
-        }
+        ]
       };
 
       var map = new google.maps.Map(
