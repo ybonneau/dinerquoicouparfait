@@ -1,69 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Itinéraire multi-villes</title>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_nXj4a0XcdSxbt9-JXU9Xfobdl0-qeco"></script>
-    <script>
-      function initMap() {
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRenderer = new google.maps.DirectionsRenderer();
+<head>
+  <title>Itinéraire multi-villes</title>
 
-        var mapOptions = {
-          zoom: 3,
-          center: { lat: 46, lng: 2 },
-          disableDefaultUI: true,
-          styles: [
-            {
-              featureType: "all",
-              elementType: "labels",
-              stylers: [{ visibility: "off" }]
-            }
-          ]
-        };
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_nXj4a0XcdSxbt9-JXU9Xfobdl0-qeco"></script>
+  <script>
+    function initMap() {
+      var directionsService = new google.maps.DirectionsService();
+      var directionsRenderer = new google.maps.DirectionsRenderer();
 
-        var map = new google.maps.Map(
-          document.getElementById("map"),
-          mapOptions
-        );
-        directionsRenderer.setMap(map);
+      var europeBounds = {
+        north: 71.5,
+        south: 34.5,
+        west: -25.0,
+        east: 45.0
+      };
 
-        directionsService.route(request, function (result, status) {
-          if (status == "OK") {
-            var directionsRenderer = new google.maps.DirectionsRenderer({
-              map: map,
-              directions: result,
-              suppressInfoWindows: true // Désactive les infobulles
-            });
+      var mapOptions = {
+        zoom: 6.4,
+        center: { lat: 46, lng: 2 },
+        disableDefaultUI: true,
+        scrollwheel: false,
+        styles: [
+          {
+            featureType: "all",
+            elementType: "labels",
+            stylers: [{ visibility: "off" }]
           }
-        });
-      }
-    </script>
-    <style>
-      html,
-      body,
-      #map {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-    </style>
-  </head>
+        ],
+        restriction: {
+          latLngBounds: europeBounds,
+          strictBounds: false
+        }
+      };
+
+      var map = new google.maps.Map(
+        document.getElementById("map"),
+        mapOptions
+      );
+      directionsRenderer.setMap(map);
+
+      directionsService.route(request, function (result, status) {
+        if (status == "OK") {
+          var directionsRenderer = new google.maps.DirectionsRenderer({
+            map: map,
+            directions: result,
+            suppressInfoWindows: true // Désactive les infobulles
+          });
+        }
+      });
+    }
+  </script>
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body onload="initMap()">
+
   <body onload="initMap()">
-    <body onload="initMap()">
-      <div id="map"></div>
-      <img
-        src="test.png"
-        style="
+    <div id="map"></div>
+    <img src="test.png" style="
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 1;
           pointer-events: none;
-        "
-      />
-    </body>
+        " />
   </body>
+</body>
+
 </html>
